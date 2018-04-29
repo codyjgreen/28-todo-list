@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Note from './note.jsx';
+
 class Edit extends React.Component {
   constructor(props) {
     super(props);
@@ -13,29 +15,34 @@ class Edit extends React.Component {
     this.cancel = this.cancel.bind(this);
   }
 
-  update(ev) {
+  update(event) {
       let newState = {};
-      newState[ev.target.value] = ev.target.value;
+      newState[event.target.name] = event.target.value;
       this.setState(newState);
 
   }
 
-  save(ev) {
+  save(event) {
     event.preventDefault();
-    this.props.saveUpdate(this.save)
+    console.log(this.state, 'first save console');
+    this.props.saveUpdate(this.state)
+    console.log(this.state, 'second save console');
+
   }
 
-  cancel(ev) {
+  cancel(event) {
     event.preventDefault();
     this.props.cancelUpdate();
   }
 
 
   render() {
-    return <div>
-      <p>Make a note or read a note.</p>
-      <p>Get started by opening the Dashboard.</p>
-    </div>
+    return <form onSubmit={this.save}>
+     <input onChange={this.update} name="title" type="text" placeholder="title"/>
+     <textarea onChange={this.update} name="content"/>
+     <button type="submit">Update</button>
+     <button onClick={this.cancel}>Cancel</button>
+    </form>
   }
 }
 

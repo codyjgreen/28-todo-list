@@ -5,6 +5,7 @@ import uuidv1 from 'uuid/v4';
 class NoteForm extends React.Component {
   constructor(props) {
     super(props);
+    
     this.state = {
       id: uuidv1(),
       title: '',

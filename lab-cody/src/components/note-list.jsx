@@ -9,7 +9,7 @@ class NotesList extends React.Component {
   }
   showAllNotes() {
     return this.props.notes.map((note) => {
-      return <Note key={note.id} id={note.id} title={note.title} content={note.content} deleteNote={this.props.deleteNote}/>
+      return <Note key={note.id} id={note.id} title={note.title} content={note.content} deleteNote={this.props.deleteNote} editNote={this.props.editNote}/>
     });
   }
   render() {

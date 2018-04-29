@@ -1,9 +1,8 @@
 import React from 'react';
-import ReactDom from 'react-dom';
 
-import Notes from './note.jsx';
-import NoteList from './note-list.jsx';
 import NoteForm from './note-create-form.jsx';
+
+import NoteList from './note-list.jsx';
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -13,6 +12,7 @@ class Dashboard extends React.Component {
   }
   this.addNote = this.addNote.bind(this);
   this.deleteNote = this.deleteNote.bind(this);
+  this.editNote = this.editNote.bind(this);
 }
 
 addNote(noteObj) {
@@ -32,11 +32,23 @@ deleteNote(id) {
     this.setState({notes: this.state.notes});
   }
 
+  editNote(noteInfo, id) {
+    console.log(this.state, 'inside edit note function in dashboard');
+    let pendingUpdate = this.state.notes.find(note => {
+      return note.id = id;
+    });
+    let noteIndex = this.state.notes.indexOf(pendingUpdate);
+    let newNoteArray = this.state.notes.slice();
+    newNoteArray[noteIndex] = noteInfo;
+    this.setState({notes: newNoteArray});
+    console.log(this.state.notes, 'finished dashboard');
+  }
+
   render() {
     return <main>
       <p>Dashboard</p>
       <NoteForm newNoteFunc={this.addNote}></NoteForm>
-      <NoteList notes={this.state.notes} deleteNote={this.deleteNote} />
+      <NoteList notes={this.state.notes} deleteNote={this.deleteNote} editNote={this.editNote} />
     </main>
   }
 }

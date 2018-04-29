@@ -83,7 +83,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader
 
 
 // module
-exports.push([module.i, "body {\n  background-color: cornflowerblue; }\n", ""]);
+exports.push([module.i, "body {\n  background-color: cornflowerblue; }\n\nnav {\n  background-color: goldenrod; }\n  nav ul {\n    padding-left: 0; }\n    nav ul li {\n      display: inline;\n      margin-right: 10px; }\n\nform input {\n  display: block;\n  margin: 5px 0; }\n\nform text-area {\n  display: block;\n  margin: 5px 0; }\n\nform button {\n  display: block;\n  margin: 5px 0; }\n\nmain ul li a {\n  color: goldenrod; }\n", ""]);
 
 // exports
 
@@ -25217,21 +25217,13 @@ var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+var _noteCreateForm = __webpack_require__(/*! ./note-create-form.jsx */ "./src/components/note-create-form.jsx");
 
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
-var _note = __webpack_require__(/*! ./note.jsx */ "./src/components/note.jsx");
-
-var _note2 = _interopRequireDefault(_note);
+var _noteCreateForm2 = _interopRequireDefault(_noteCreateForm);
 
 var _noteList = __webpack_require__(/*! ./note-list.jsx */ "./src/components/note-list.jsx");
 
 var _noteList2 = _interopRequireDefault(_noteList);
-
-var _noteCreateForm = __webpack_require__(/*! ./note-create-form.jsx */ "./src/components/note-create-form.jsx");
-
-var _noteCreateForm2 = _interopRequireDefault(_noteCreateForm);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -25240,13 +25232,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-// import {
-//     BrowserRouter as Router,
-//     Route,
-//     Link
-//   } from 'react-router-dom';
-
 
 var Dashboard = function (_React$Component) {
   _inherits(Dashboard, _React$Component);
@@ -25261,6 +25246,7 @@ var Dashboard = function (_React$Component) {
     };
     _this.addNote = _this.addNote.bind(_this);
     _this.deleteNote = _this.deleteNote.bind(_this);
+    _this.editNote = _this.editNote.bind(_this);
     return _this;
   }
 
@@ -25284,6 +25270,17 @@ var Dashboard = function (_React$Component) {
       this.setState({ notes: this.state.notes });
     }
   }, {
+    key: 'editNote',
+    value: function editNote(noteInfo, id) {
+      var pendingUpdate = this.state.notes.find(function (note) {
+        return note.id = id;
+      });
+      var noteIndex = this.state.notes.indexOf(pendingUpdate);
+      var newNoteArray = this.state.notes.slice();
+      newNoteArray[noteIndex] = noteInfo;
+      this.setState({ notes: newNoteArray });
+    }
+  }, {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
@@ -25295,7 +25292,7 @@ var Dashboard = function (_React$Component) {
           'Dashboard'
         ),
         _react2.default.createElement(_noteCreateForm2.default, { newNoteFunc: this.addNote }),
-        _react2.default.createElement(_noteList2.default, { notes: this.state.notes, deleteNote: this.deleteNote })
+        _react2.default.createElement(_noteList2.default, { notes: this.state.notes, deleteNote: this.deleteNote, editNote: this.editNote })
       );
     }
   }]);
@@ -25304,6 +25301,105 @@ var Dashboard = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = Dashboard;
+
+/***/ }),
+
+/***/ "./src/components/edit-note.jsx":
+/*!**************************************!*\
+  !*** ./src/components/edit-note.jsx ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _note = __webpack_require__(/*! ./note.jsx */ "./src/components/note.jsx");
+
+var _note2 = _interopRequireDefault(_note);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Edit = function (_React$Component) {
+  _inherits(Edit, _React$Component);
+
+  function Edit(props) {
+    _classCallCheck(this, Edit);
+
+    var _this = _possibleConstructorReturn(this, (Edit.__proto__ || Object.getPrototypeOf(Edit)).call(this, props));
+
+    _this.state = {
+      title: _this.props.title,
+      content: _this.props.content,
+      id: _this.props.id
+    };
+    _this.update = _this.update.bind(_this);
+    _this.save = _this.save.bind(_this);
+    _this.cancel = _this.cancel.bind(_this);
+    return _this;
+  }
+
+  _createClass(Edit, [{
+    key: 'update',
+    value: function update(ev) {
+      var newState = {};
+      newState[ev.target.value] = ev.target.value;
+      this.setState(newState);
+    }
+  }, {
+    key: 'save',
+    value: function save(ev) {
+      event.preventDefault();
+      this.props.saveUpdate(this.state);
+    }
+  }, {
+    key: 'cancel',
+    value: function cancel(ev) {
+      event.preventDefault();
+      this.props.cancelUpdate();
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'form',
+        { onSubmit: this.save },
+        _react2.default.createElement('input', { onChange: this.update, name: 'title', type: 'text', placeholder: 'title' }),
+        _react2.default.createElement('textarea', { onChange: this.update, name: 'content' }),
+        _react2.default.createElement(
+          'button',
+          { type: 'submit' },
+          'Update'
+        ),
+        _react2.default.createElement(
+          'button',
+          { onClick: this.cancel },
+          'Cancel'
+        )
+      );
+    }
+  }]);
+
+  return Edit;
+}(_react2.default.Component);
+
+exports.default = Edit;
 
 /***/ }),
 
@@ -25354,6 +25450,11 @@ var Landing = function (_React$Component) {
           'p',
           null,
           'Make a note or read a note.'
+        ),
+        _react2.default.createElement(
+          'p',
+          null,
+          'Get started by opening the Dashboard.'
         )
       );
     }
@@ -25435,7 +25536,7 @@ var NoteForm = function (_React$Component) {
       event.preventDefault();
       var newId = (0, _v2.default)();
       this.setState({ id: newId });
-      this.props.addNoteFunc(this.state);
+      this.props.newNoteFunc(this.state);
     }
   }, {
     key: 'render',
@@ -25520,7 +25621,7 @@ var NotesList = function (_React$Component) {
       var _this2 = this;
 
       return this.props.notes.map(function (note) {
-        return _react2.default.createElement(_note2.default, { key: note.id, id: note.id, title: note.title, content: note.content, deleteNote: _this2.props.deleteNote });
+        return _react2.default.createElement(_note2.default, { key: note.id, id: note.id, title: note.title, content: note.content, deleteNote: _this2.props.deleteNote, editNote: _this2.props.editNote });
       });
     }
   }, {
@@ -25559,6 +25660,96 @@ exports.default = NotesList;
 
 "use strict";
 
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _editNote = __webpack_require__(/*! ./edit-note.jsx */ "./src/components/edit-note.jsx");
+
+var _editNote2 = _interopRequireDefault(_editNote);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Note = function (_React$Component) {
+  _inherits(Note, _React$Component);
+
+  function Note(props) {
+    _classCallCheck(this, Note);
+
+    var _this = _possibleConstructorReturn(this, (Note.__proto__ || Object.getPrototypeOf(Note)).call(this, props));
+
+    _this.state = {
+      editing: false
+    };
+    _this.deleteNote = _this.deleteNote.bind(_this);
+    _this.toggleEdit = _this.toggleEdit.bind(_this);
+    _this.saveUpdate = _this.saveUpdate.bind(_this);
+    _this.cancelUpdate = _this.cancelUpdate.bind(_this);
+    return _this;
+  }
+
+  _createClass(Note, [{
+    key: 'toggleEdit',
+    value: function toggleEdit() {
+      this.setState({ editing: !this.setState.editing });
+    }
+  }, {
+    key: 'deleteNote',
+    value: function deleteNote(event) {
+      event.preventDefault();
+      console.log('deleting a note', this.props.id);
+      this.props.deleteNote(this.props.id);
+    }
+  }, {
+    key: 'saveUpdate',
+    value: function saveUpdate(info) {
+      this.setState({ editing: false });
+      this.props.editNote(info, this.props.id);
+    }
+  }, {
+    key: 'cancelUpdate',
+    value: function cancelUpdate() {
+      this.toggleEdit();
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      if (this.state.editing) {
+        return _react2.default.createElement(_editNote2.default, { title: this.props.title, content: this.props.content, id: this.props.id, key: this.props.id, saveUpdate: this.saveUpdate, cancelUpdate: this.cancelUpdate });
+      }
+      return _react2.default.createElement(
+        'li',
+        { onDoubleClick: this.toggleEdit },
+        this.props.title,
+        ': ',
+        this.props.content,
+        '. ',
+        _react2.default.createElement(
+          'a',
+          { onClick: this.deleteNote },
+          'x'
+        )
+      );
+    }
+  }]);
+
+  return Note;
+}(_react2.default.Component);
+
+exports.default = Note;
 
 /***/ }),
 
