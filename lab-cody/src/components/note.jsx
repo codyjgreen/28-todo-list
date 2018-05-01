@@ -14,8 +14,8 @@ class Note extends React.Component{
   }
 
   render() {
-    return <li>
-      {this.props.title}: {this.props.content}. <a onClick={this.deleteNote}>x</a>
+    return <li><div>
+      {this.props.title}: {this.props.content}. <a onClick={this.deleteNote}>Delete</a></div>
     </li>
   }
 }
